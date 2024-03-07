@@ -130,7 +130,7 @@ def expense_print(heading, frame, subtotal):
     print(frame)
     print()
     print("{} Costs: ${:.2f}".format(heading, subtotal))
-    return
+    return ""
 
 
 # Main routine goes here
@@ -155,6 +155,8 @@ if have_fixed == "yes":
 
 else:
     fixed_sub = 0
+
+# Printing area
 
 print()
 print("**** Fund Raising - {} ****".format(product_name))
