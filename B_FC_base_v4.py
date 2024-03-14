@@ -1,9 +1,39 @@
 # import libraries
 import pandas
 import math
+from datetime import date
 
 
 # functions go here
+
+
+# Shows instructions
+def instructions():
+    print('''\n
+***** Instructions *****
+
+This program will ask you for...
+- The name of the product you are selling
+- How many items you plan on selling
+- The costs for each component of the product
+- How much money you want to make
+
+It will then output an itemised list of the costs
+with subtotals for the variable and fixed costs.
+Finally it will tell you how much you should sell
+each item to reach your profit goal.
+
+The data will also be written to a text file which
+has the same as your product.
+
+When you have entered all the you need, press 'xxx' to quit.
+
+This information will also be automatically written
+to text file
+
+**** Program Launched! ****
+''')
+
 
 # checks that input is either a float or an
 # integer that is more than zero. Takes in custom error message
@@ -205,6 +235,21 @@ def round_up(amount, round_to):
 
 
 # Main routine goes here
+
+print("****** Welcome to the Fund Raising Calculator *******")
+print()
+
+# Ask user if they want to see the instructions
+want_instructions = yes_no("Do you want to see the instructions?")
+
+if want_instructions == "yes":
+    instructions()
+
+else:
+    print()
+    print('**** Program Launched! ****')
+    print()
+
 # get product name
 product_name = not_blank("Product name: ", "The product name can't be blank. ")
 how_many = num_check("How many items will you be producing? "
@@ -254,13 +299,23 @@ variable_txt = pandas.DataFrame.to_string(variable_frame)
 
 if have_fixed == "yes":
     fixed_txt = pandas.DataFrame.to_string(fixed_frame)
+    fixed_heading = "===== Fixed Costs ====="
 else:
     fixed_txt = ""
+    fixed_heading = ""
+
+# get today's date
+today = date.today()
+
+# Get day, month, and year as individual strings
+day = today.strftime("%d")
+month = today.strftime("%m")
+year = today.strftime("%y")
 
 # **** Printing area ****
 
 print()
-product_heading = "**** Fund Raising - {} ****".format(product_name)
+product_heading = "**** Fund Raising -- {} -- ({}/{}/{}) ****".format(product_name, day, month, year)
 print()
 # expense_print("Variable", variable_frame, variable_sub)
 #
@@ -273,7 +328,6 @@ print()
 #
 # print()
 variable_heading = "===== Variable Costs ====="
-fixed_heading = "===== Fixed Costs ====="
 sales_heading = "**** Profit & Sales Targets *****"
 profit_target_text = f"Profit Target: ${profit_target:.2f}"
 required_sales = f"Total Sales: ${all_costs + profit_target:.2f}"
